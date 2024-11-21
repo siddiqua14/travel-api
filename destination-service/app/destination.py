@@ -1,8 +1,5 @@
-# destination.py
-
 from flask_restx import Namespace, Resource, fields
 from flask import request
-from .config import Config  # Import the Config class
 
 # Define the API namespace
 destination_api = Namespace(
@@ -27,8 +24,8 @@ destination_model = destination_api.model(
     },
 )
 
-# In-memory destination data (loaded from Config)
-destinations = Config.DESTINATIONS  # List of destinations
+# In-memory destination data
+destinations = []  # This list will hold the destination data in-memory
 
 
 # Destination Resource (GET and POST endpoints)
