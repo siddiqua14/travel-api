@@ -1,1 +1,23 @@
-users_data = [{'name': 'A', 'email': '0string', 'password': 'scrypt:32768:8:1$YUvhzrjWRm34BS0z$fddd9f1acd70b46d3705fa9db2dae0306fb077b917320d0b1df172e3ea7cca67287f4c34cf320b8177f59c74d42c44e74b3cff6fcdea84140990ae5e5b2a0125', 'role': 'User', 'id': 1}, {'name': 'A', 'email': '00', 'password': 'scrypt:32768:8:1$2dt5V3fFAaPQzhfF$e88f8fe3d0428537a7687d1e91bf4205cb4847212396081e488d777f271f5f28ad44c4ad1d508fac2e8e9e48e4a83fef584aa19c825bfcb34d34972632b54a48', 'role': 'User', 'id': 2}, {'name': 'w3', 'email': 'w3', 'password': 'scrypt:32768:8:1$X8dxxJHyzBcsUpZV$33e3d6e37bcd6d7088667cda6e555caeddd990ef3cc43e89bdf928c94c88ce198f918851a888b66ae021ec0595e6f6c77250ff0cb9edf8649ad5e306c86a380a', 'role': 'Admin', 'id': 3}]
+users_data = [
+    {
+        "name": "mumu",
+        "email": "mumu@gmail.com",
+        "password": "scrypt:32768:8:1$WjDX8FI3nPmoV0eO$5d421a6bce03a79683144047025d723785faa2a9bd89c65b779c06fc29056215a18cffb7e97f354cdb7258c146387df46c29b3b68c361c89bbe17ae1d316d6f4",
+        "role": "User",
+        "id": 1,
+    },
+    {
+        "name": "nila",
+        "email": "nila@gmail.com",
+        "password": "scrypt:32768:8:1$Tdnfo8QxmbwqjRjp$0ac74ed2481a5d62db8d3b0b4daff59c6666a9e78432b37c02b48865d682dc5e841752ec5a57edaa31d7a9371a02fd6240662f620e733928a9f86a2d1e5f3386",
+        "role": "Admin",
+        "id": 2,
+    },
+    {
+        "name": "w3",
+        "email": "w3@gmail.com",
+        "password": "scrypt:32768:8:1$VziTaMcmcvfCFfQ1$92a92d5c7dc9c2ccebd99dfba12a26103dea2ff43a92542b344ef1fc3f82c8a67d9ee19c8f0fa92874623072c03ae23dcfe9652301e48348f06d407eb83f08c6",
+        "role": "Admin",
+        "id": 3,
+    },
+]

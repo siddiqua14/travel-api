@@ -1,8 +1,10 @@
 from flask import Flask, redirect
 from flask_restx import Api
-from flasgger import Swagger  # Import Flasgger
+from flasgger import Swagger
 from .user import user_api
 from config import Config
+import logging
+logging.basicConfig(level=logging.DEBUG)
 
 
 def create_app():

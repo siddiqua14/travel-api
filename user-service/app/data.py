@@ -13,9 +13,9 @@ def load_users_data():
     if os.path.exists(DATA_FILE):
         with open(DATA_FILE, "r") as file:
             content = file.read()
-            if content:
+            try:
                 exec(content)
-            else:
+            except Exception:
                 users_data = []
     else:
         users_data = []  # If file doesn't exist, initialize an empty list
@@ -23,5 +23,21 @@ def load_users_data():
 
 # Function to save users to data file
 def save_users_data():
+    global users_data
+    if os.path.exists(DATA_FILE):
+        with open(DATA_FILE, "r") as file:
+            # Read existing data and modify the `users_data` declaration
+            existing_content = file.read()
+            if "users_data =" in existing_content:
+                # Replace the existing users_data content
+                new_content = "users_data = " + repr(users_data)
+            else:
+                # If no `users_data` is present, start fresh
+                new_content = "users_data = " + repr(users_data)
+    else:
+        # If file doesn't exist, create and write new data
+        new_content = "users_data = " + repr(users_data)
+
+    # Write to the file
     with open(DATA_FILE, "w") as file:
-        file.write("users_data = " + repr(users_data))
+        file.write(new_content)
