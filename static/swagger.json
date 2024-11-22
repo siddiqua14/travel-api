@@ -1,0 +1,89 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "Destination Service API",
+        "version": "1.0"
+    },
+    "basePath": "/",
+    "paths": {
+        "/destinations": {
+            "get": {
+                "summary": "Get all destinations",
+                "responses": {
+                    "200": {
+                        "description": "A list of destinations",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Destination"
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "summary": "Create a new destination",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "destination",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Destination"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Destination created"
+                    }
+                }
+            }
+        },
+        "/destinations/{id}": {
+            "delete": {
+                "summary": "Delete a destination by ID",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "type": "integer",
+                        "description": "ID of the destination to delete"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Destination deleted"
+                    },
+                    "404": {
+                        "description": "Destination not found"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "Destination": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "example": 1
+                },
+                "name": {
+                    "type": "string",
+                    "example": "Paris"
+                },
+                "description": {
+                    "type": "string",
+                    "example": "The City of Lights"
+                },
+                "location": {
+                    "type": "string",
+                    "example": "France"
+                }
+            }
+        }
+    }
+}

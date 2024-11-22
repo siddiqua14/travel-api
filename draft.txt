@@ -1,24 +1,67 @@
+from flask import Flask
+from flask_restx import Api
+from app.destination import destination_api  # Import the destination namespace
+import os
+
+
+def create_app():
+    app = Flask(
+        __name__,
+        static_folder=os.path.join(
+            os.path.dirname(os.path.abspath(__file__)), "static"
+        ),
+    )
+
+    # Initialize Flask-RESTX API with the Flask app
+    api = Api(
+        app,
+        version="1.0",
+        title="Destination Service API",
+        description="Manage travel destinations",
+    )
+
+    # Register the destination API namespace with the API
+    api.add_namespace(destination_api, path="/destinations")
+
+    return app
+
+
+
+
+-----user 
+
 from flask_restx import Namespace, Resource, fields
 from flask import request, jsonify
 import jwt
 import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 from config import Config
-from app.data import save_users_data, load_users_data
+from app.data import users_data, save_users_data, load_users_data
+
+# Load users data when the app starts
+load_users_data()
 
 user_api = Namespace(
-    "users", description="User registration, authentication, profile management"
+    "users",
+    description="User registration, authentication, profile management"
 )
 
 # Define user registration model for Swagger
 user_model = user_api.model(
     "User",
     {
-        "name": fields.String(required=True, description="Full name of the user"),
-        "email": fields.String(required=True, description="Email address of the user"),
-        "password": fields.String(required=True, description="Password of the user"),
+        "name": fields.String(
+            required=True, description="Full name of the user"
+            ),
+        "email": fields.String(
+            required=True, description="Email address of the user"
+            ),
+        "password": fields.String(
+            required=True, description="Password of the user"
+            ),
         "role": fields.String(
-            required=True, description="Role of the user, either 'Admin' or 'User'"
+            required=True,
+            description="Role of the user, either 'Admin' or 'User'"
         ),
     },
 )
@@ -27,8 +70,12 @@ user_model = user_api.model(
 login_model = user_api.model(
     "Login",
     {
-        "email": fields.String(required=True, description="Email address of the user"),
-        "password": fields.String(required=True, description="Password of the user"),
+        "email": fields.String(
+            required=True, description="Email address of the user"
+            ),
+        "password": fields.String(
+            required=True, description="Password of the user"
+            ),
     },
 )
 
@@ -50,37 +97,37 @@ class Register(Resource):
     @user_api.expect(user_model)
     def post(self):
         """Register a new user"""
-        users_data = load_users_data()  # Load the latest users
         user_data = request.json
 
-        # Check if the email already exists
-        if any(user["email"] == user_data["email"] for user in users_data):
-            return {"message": "Email already exists"}, 400
+        # Check if the email already exists in the users_data
+        for user in users_data:
+            if user["email"] == user_data["email"]:
+                return {"message": "Email already exists"}, 400
 
-        # Assign a unique ID
+        # Assign unique ID based on the existing users' length
         user_data["id"] = len(users_data) + 1
         user_data["password"] = generate_password_hash(user_data["password"])
 
-        # Save the new user
-        save_users_data([user_data])  # Pass as a list to append
+        # Append the new user and save to file
+        users_data.append(user_data)
+        save_users_data()
+
         return user_data, 201
 
 
 @user_api.route("/login")
 class Login(Resource):
     @user_api.doc("login_user")
-    @user_api.expect(login_model)
+    @user_api.expect(login_model)  # Expect only email and password
     def post(self):
         """Login a user and provide a JWT token"""
-        users_data = load_users_data()  # Load the latest users
         login_data = request.json
-
-        # Verify credentials
         for user in users_data:
             if user["email"] == login_data["email"] and check_password_hash(
                 user["password"], login_data["password"]
             ):
                 token = generate_token(user)
+                print("Generated Token Payload:", jwt.decode(token, Config.JWT_SECRET_KEY, algorithms=["HS256"]))
                 return jsonify({"token": token})
         return {"message": "Invalid credentials"}, 401
 
@@ -96,10 +143,10 @@ class Profile(Resource):
             return {"message": "Token is missing"}, 401
 
         try:
-            token_data = jwt.decode(token, Config.JWT_SECRET_KEY, algorithms=["HS256"])
+            token_data = jwt.decode(
+                token, Config.JWT_SECRET_KEY, algorithms=["HS256"]
+                )
             user_id = token_data["user_id"]
-            users_data = load_users_data()  # Load the latest users
-
             for user in users_data:
                 if user["id"] == user_id:
                     return user, 200
@@ -121,7 +168,9 @@ class Admin(Resource):
             return {"message": "Token is missing"}, 401
 
         try:
-            token_data = jwt.decode(token, Config.JWT_SECRET_KEY, algorithms=["HS256"])
+            token_data = jwt.decode(
+                token, Config.JWT_SECRET_KEY, algorithms=["HS256"]
+                )
             if token_data["role"] != "Admin":
                 return {"message": "Access denied. Admins only."}, 403
             return {"message": "Welcome Admin"}, 200
@@ -129,3 +178,23 @@ class Admin(Resource):
             return {"message": "Token expired"}, 401
         except jwt.InvalidTokenError:
             return {"message": "Invalid token"}, 401
+
+
+
+
+destinations = [
+    {
+        "id": 1,
+        "name": "Paris",
+        "description": "The City of Lights",
+        "location": "France",
+    },
+    {
+        "id": 2,
+        "name": "Tokyo",
+        "description": "A bustling metropolis",
+        "location": "Japan",
+    },
+    {"id": 3, "name": "New York", "description": "The Big Apple", "location": "USA"},
+]
+

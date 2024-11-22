@@ -1,5 +1,9 @@
+import os
+
+
 class Config:
-    SECRET_KEY = "your-secret-key"
+    SECRET_KEY = os.getenv("SECRET_KEY", "your-secret-key")
+    JWT_SECRET_KEY = "123"
     DEBUG = True
 
 
