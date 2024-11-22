@@ -1,60 +1,49 @@
-from flask_restx import Namespace, Resource, fields
 from flask import request
+from flask_restx import Namespace, Resource, fields
+from app.data import destinations, save_data
 
-# Define the API namespace
-destination_api = Namespace(
-    "destinations", description="Destination related operations"
-)
+destination_ns = Namespace("destinations", description="Manage travel destinations")
 
-destination_model = destination_api.model(
+# Swagger model for destination details
+destination_model = destination_ns.model(
     "Destination",
     {
-        "id": fields.Integer(
-            readonly=True, description="The destination unique identifier"
-        ),
-        "name": fields.String(
-            required=True, description="The name of the destination"
-        ),
-        "description": fields.String(
-            required=True, description="A brief description of the destination"
-        ),
-        "location": fields.String(
-            required=True, description="The location of the destination"
-        ),
+        "id": fields.Integer(description="Unique ID"),
+        "name": fields.String(required=True, description="Destination name"),
+        "description": fields.String(required=True, description="Short description"),
+        "location": fields.String(required=True, description="Location name"),
     },
 )
 
-# In-memory destination data
-destinations = []  # This list will hold the destination data in-memory
+
+# Helper function for role-based access
+def is_admin():
+    auth_header = request.headers.get("Authorization", "")
+    return auth_header == "Bearer admin-token"  # Replace with real token validation!
 
 
-# Destination Resource (GET and POST endpoints)
-@destination_api.route("/")
+@destination_ns.route("/")
 class DestinationList(Resource):
-    @destination_api.doc("list_destinations")
-    @destination_api.marshal_list_with(destination_model)
+    @destination_ns.doc("list_destinations")
+    @destination_ns.marshal_list_with(destination_model)
     def get(self):
-        """List all destinations"""
-        return destinations
-
-    @destination_api.doc("create_destination")
-    @destination_api.expect(destination_model)
-    @destination_api.marshal_with(destination_model, code=201)
-    def post(self):
-        """Create a new destination"""
-        new_dest = request.json  # Get the new destination data from request
-        new_dest["id"] = len(destinations) + 1  # Assign a new ID
-        destinations.append(new_dest)  # Append to the destinations list
-        return new_dest, 201
+        """Retrieve a list of all travel destinations."""
+        return destinations, 200
 
 
-# Destination Resource (DELETE endpoint by ID)
-@destination_api.route("/<int:id>")
-@destination_api.param("id", "The destination identifier")
+@destination_ns.route("/<int:id>")
 class Destination(Resource):
-    @destination_api.doc("delete_destination")
+    @destination_ns.doc("delete_destination", security="Bearer")
     def delete(self, id):
-        """Delete a destination by its ID"""
+        """Delete a specific travel destination (Admin-only)."""
+        if not is_admin():
+            return {"message": "Unauthorized access. Admins only!"}, 403
+
         global destinations
-        destinations = [dest for dest in destinations if dest["id"] != id]
-        return "", 204
+        destination = next((d for d in destinations if d["id"] == id), None)
+        if not destination:
+            return {"message": "Destination not found"}, 404
+
+        destinations = [d for d in destinations if d["id"] != id]
+        save_data(destinations)
+        return {"message": "Destination deleted successfully"}, 200
