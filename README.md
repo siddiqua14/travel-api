@@ -53,24 +53,24 @@ This project implements a Travel API using a microservices architecture, ensurin
    python run.py
    exit
 
-## API Endpoints
+5. **API Endpoints**
 
-### 1. User Service
-- **Base URL**: `http://localhost:5000`
+    #### 1. User Service
+    - **Base URL**: `http://localhost:5000`
 
-### 2. Authentication Service
-- **Base URL**: `http://localhost:5001`
+    #### 2. Authentication Service
+    - **Base URL**: `http://localhost:5001`
 
-### 3. Destination Service
-- **Base URL**: `http://localhost:5002`
+    #### 3. Destination Service
+    - **Base URL**: `http://localhost:5002`
 
-## Testing
+6. **Testing**
 
-To run tests for all services:
+-To run tests for all services:
     ```bash
     pytest tests/
     exit
-Test output will display test coverage and results:
+-Test output will display test coverage and results:
     ```bash
     pytest --cov=app tests/
     exit
