@@ -35,7 +35,7 @@ login_model = user_api.model(
 
 # Helper function to generate JWT token
 def generate_token(user):
-    expiration = datetime.datetime.utcnow() + datetime.timedelta(hours=1)
+    expiration = datetime.datetime.utcnow() + datetime.timedelta(hours=5)
     token = jwt.encode(
         {"user_id": user["id"], "role": user["role"], "exp": expiration},
         Config.JWT_SECRET_KEY,

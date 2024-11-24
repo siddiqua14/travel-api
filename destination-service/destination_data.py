@@ -55,4 +55,10 @@ destinations = [
         "description": "City of the Rising Sun",
         "location": "Japan",
     },
+    {
+        "id": 1004,
+        "name": "Tokyo",
+        "description": "City of the Rising Sun",
+        "location": "Japan",
+    },
 ]

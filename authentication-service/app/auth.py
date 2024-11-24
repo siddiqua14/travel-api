@@ -42,7 +42,7 @@ def fetch_user_data(email):
 
 def generate_token(user):
     """Generate JWT token"""
-    expiration = datetime.utcnow() + timedelta(hours=1)
+    expiration = datetime.utcnow() + timedelta(hours=5)
     token = jwt.encode(
         {
             "user_id": user["id"],
