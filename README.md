@@ -67,8 +67,21 @@ This project implements a Travel API using a microservices architecture, ensurin
 ## Testing
 
 To run tests for all services:
-
-```bash
+    ```bash
     pytest tests/
+    exit
+Test output will display test coverage and results:
+    ```bash
+    pytest --cov=app tests/
+    exit
 
-exit 
+## Example Workflow
+
+1. **Register a User**:  
+   Send a request to `/users/register` to create a new user.
+
+2. **Login**:  
+   Authenticate via `/auth/login` to obtain a JWT token.
+
+3. **Authenticated Requests**:  
+   Use the token to make authenticated requests, such as adding or deleting destinations.
