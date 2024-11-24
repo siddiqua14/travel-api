@@ -44,6 +44,19 @@ def generate_token(user):
     return token
 
 
+@user_api.route("/find")
+class FindUser(Resource):
+    @user_api.param("email", "User's email address", _in="query")
+    def get(self):
+        """Fetch a user by email"""
+        email = request.args.get("email")
+        users = load_users_data()
+        user = next((u for u in users if u["email"] == email), None)
+        if user:
+            return user, 200
+        return {"message": "User not found"}, 404
+
+
 @user_api.route("/register")
 class Register(Resource):
     @user_api.doc("register_user")

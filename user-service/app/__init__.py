@@ -23,7 +23,7 @@ def create_app():
         version="1.0",
         title="User Service API",
         description="User registration, authentication, profile management",
-        doc="/swagger/",
+        doc="/",
         authorizations=authorizations,
         security="Bearer Auth",
     )

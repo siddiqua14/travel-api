@@ -198,3 +198,12 @@ destinations = [
     {"id": 3, "name": "New York", "description": "The Big Apple", "location": "USA"},
 ]
 
+
+
+
+
+
+/////#global destinations
+ destination = next((d for d in destinations if d["id"] == id), None)
+        if not destination:
+            return {"message": "Destination not found"}, 404

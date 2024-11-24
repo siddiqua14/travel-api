@@ -19,4 +19,40 @@ destinations = [
     },
     {"id": 4, "name": "use", "description": "string", "location": "string"},
     {"id": 5, "name": "uk", "description": "string", "location": "string"},
+    {
+        "id": 6,
+        "name": "Tokyo",
+        "description": "City of the Rising Sun",
+        "location": "Japan",
+    },
+    {
+        "id": 7,
+        "name": "Tokyo",
+        "description": "City of the Rising Sun",
+        "location": "Japan",
+    },
+    {
+        "id": 8,
+        "name": "Tokyo",
+        "description": "City of the Rising Sun",
+        "location": "Japan",
+    },
+    {
+        "id": 1001,
+        "name": "Tokyo",
+        "description": "City of the Rising Sun",
+        "location": "Japan",
+    },
+    {
+        "id": 1002,
+        "name": "Tokyo",
+        "description": "City of the Rising Sun",
+        "location": "Japan",
+    },
+    {
+        "id": 1003,
+        "name": "Tokyo",
+        "description": "City of the Rising Sun",
+        "location": "Japan",
+    },
 ]

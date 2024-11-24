@@ -10,6 +10,9 @@ def create_app():
     # Enable CORS for the app
     CORS(app)
 
+    # Allow URLs with and without trailing slashes
+    app.url_map.strict_slashes = False
+
     # Define Bearer token security scheme
     authorizations = {
         "Bearer": {
@@ -26,7 +29,7 @@ def create_app():
         version="1.0",
         title="Destination Service API",
         description="API for managing travel destinations",
-        doc="/swagger/",
+        doc="/",
         security="Bearer",  # Apply Bearer security globally
         authorizations=authorizations,  # Include the authorizations in Swagger
     )

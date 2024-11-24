@@ -1,6 +1,6 @@
 from flask import request
 from flask_restx import Namespace, Resource, fields
-from app.data import destinations, save_destinations
+from app.data import destinations, save_destinations, load_destinations
 from config import Config
 import jwt
 
@@ -99,7 +99,7 @@ class Destination(Resource):
         if not is_admin():
             return {"message": "Unauthorized access. Admins only!"}, 403
 
-        global destinations
+        destinations = load_destinations()
         destination = next((d for d in destinations if d["id"] == id), None)
         if not destination:
             return {"message": "Destination not found"}, 404

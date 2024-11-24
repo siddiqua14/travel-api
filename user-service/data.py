@@ -1,1 +1,0 @@
-users_data = [{'name': 'w3Eng', 'email': 'w3', 'password': 'scrypt:32768:8:1$sx1EOwE3LO70tuDp$beb3726252490c512f736dbc4954ad87bf80e4ac6c07aa6f316efef435f48b1cc8960d0638b7042ca3ce4f272e0badd25b57c316271793ee4df11cb71ede541d', 'role': 'User', 'id': 1}]
