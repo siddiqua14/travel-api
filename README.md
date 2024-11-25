@@ -56,8 +56,10 @@ This project implements a Travel API using a microservices architecture, ensurin
    cd travel-api
 2. **Set Up Virtual Environment**:
      ```bash
-     python -m venv venv
-    source venv/bin/activate  # On Windows: venv\Scripts\activate
+     python3 -m venv .venv    # On Windows:py -3 -m venv .venv
+     source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+     pip install Flask   # Install Flask
+
 3. **Install Dependencies**:
      ```bash
     pip install -r requirements.txt
