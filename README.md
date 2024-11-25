@@ -2,11 +2,36 @@
 
 This project implements a Travel API using a microservices architecture, ensuring scalability and separation of concerns. It provides services for managing users, destinations, and authentication.
 
+## Table of Contents
+
+1. [Project Structure](#project-structure)
+2. [Technologies Used](#technologies-used)
+3. [Setup Instructions](#setup-instructions)
+   - [Prerequisites](#prerequisites)
+   - [Steps to Set Up](#steps-to-set-up)
+4. [API Endpoints](#api-endpoints)
+   - [User Service](#1-user-service)
+   - [Authentication Service](#2-authentication-service)
+   - [Destination Service](#3-destination-service)
+5. [Testing](#testing)
+6. [Example Workflow](#example-workflow)
+
 ## Project Structure
 
-- **User Service**: Manages user data, including registration, authentication, and role management.
-- **Destination Service**: View destinations. Post and Delete a specific travel destination (Admin-only).
-- **Authentication Service**: Provides JWT-based authentication and role-based access control.
+1. **User Management**:  
+   - Register new users.
+   - Login
+   - View profile  
+   - Manage user roles (admin and regular users).  
+
+2. **Secure Authentication**:  
+   - JWT-based authentication for secure access.  
+   - Role-based access control (e.g., admin-only actions).  
+
+3. **Destination Management**:  
+   - View all destinations.  
+   - Add or delete destinations (admin-only access).  
+
 
 ## Technologies Used
 
