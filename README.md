@@ -86,12 +86,10 @@ This project implements a Travel API using a microservices architecture, ensurin
 6. **Testing**
 
 -To run tests for all services:
-    ```bash
-    pytest tests/
+    `pytest tests/`
     
 -Test output will display test coverage and results:
-    ```bash
-    pytest --cov=app tests/
+   `pytest --cov=app tests/`
     
 ## Example Workflow
 
