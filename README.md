@@ -54,20 +54,14 @@ This project implements a Travel API using a microservices architecture, ensurin
    ```bash
    git clone https://github.com/siddiqua14/travel-api.git
    cd travel-api
-
-   
-
 2. **Set Up Virtual Environment**:
      ```bash
      python -m venv venv
     source venv/bin/activate  # On Windows: venv\Scripts\activate
-    
-    
 3. **Install Dependencies**:
      ```bash
     pip install -r requirements.txt
     flask run
-    
 4. **Run the Services**
    Navigate to each service folder:
    - `user-service`
@@ -76,8 +70,6 @@ This project implements a Travel API using a microservices architecture, ensurin
    Start each service using : 
    ```bash 
    python run.py
-   
-
 5. **API Endpoints**
 
     #### 1. User Service
@@ -99,7 +91,6 @@ This project implements a Travel API using a microservices architecture, ensurin
     ```bash
     pytest --cov=app tests/
     
-
 ## Example Workflow
 
 1. **Register a User**:  
